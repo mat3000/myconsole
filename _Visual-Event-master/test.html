@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Visual Event javascript booklet</title>
+		<script type="text/javascript" src="http://matdev.fr/mylog/mylog-5.0/mylog.dev-5.0.11.js"></script>
+	</head>
+	<body>
+			
+    	
+		<textarea id="js">aaa</textarea>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- <script src="test.js"></script> -->
+
+	<script type="text/javascript" charset="utf-8">
+
+		/*$(function(){
+
+			$('#js').hover( function(){
+				log.green('ceci est un event jquery');
+			});
+
+		});*/
+
+
+		var truc = document.getElementById('js');
+
+		truc.addEventListener('mouseup', sss, false); 
+
+        function sss(){
+            console.log('onmousedown');
+        }
+
+		/*truc.onmouseup = function(){
+			log.green('ceci est un event javascript');
+		};*/
+
+	</script>
+
+
+	<script language="JavaScript" src="js/shCore.js"></script>
+	<script language="JavaScript" src="js/VisualEvent_Loader.js?rand"></script>
+	<script language="JavaScript" src="js/VisualEvent.js"></script>
+	<script language="JavaScript" src="js/parsers/jQuery.js"></script>
+	<!-- <script language="JavaScript" src="js/parsers/dom0.js"></script> -->
+
+	<script language="JavaScript" src="js/parsers/eventi.js"></script>
+	<script language="JavaScript" src="js/parsers/glow.js"></script>
+	<script language="JavaScript" src="js/parsers/jsBase.js"></script>
+	<script language="JavaScript" src="js/parsers/extjs.js"></script>
+
+
+	</body>
+</html>
+

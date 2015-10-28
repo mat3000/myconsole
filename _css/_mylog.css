@@ -1,0 +1,441 @@
+    #mylog{
+    	position: fixed;
+    	left: 50px; top: 50px;
+    	width: 250px; height: 300px;
+    	/*background-color: rgba(255,0,0,0.5);*/
+        z-index: 999999999999999999999999;
+        /*display: none;*/
+        overflow: hidden;
+        border-radius: 3px;
+        box-shadow: 1px 1px 7px rgba(0,0,0,0.3);
+        cursor: move;
+    	}
+        #mylog *{
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            }
+        #mylog.myedit{
+            cursor: auto;
+            }
+        #mylog .myback{
+            position: absolute;
+            width: 100%; height: 100%;
+            background-color: #ddd;
+            -moz-opacity: 0.90;
+            -khtml-opacity: 0.90;
+            opacity: 0.90;
+            -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=90);
+            filter:progid:DXImageTransform.Microsoft.Alpha(opacity=90);
+            filter:alpha(opacity=90);
+            z-index: -1;
+            }
+        #mynav_list{
+            z-index: 299;
+            position: absolute;
+            left: 0; top: 0;
+            width: 100%; height: 20px;
+            cursor: move;
+            background-color: #555;
+            }
+            #mynav_list .mybutton, #mynav_list .mysubbutton, #mynav_list .myclose{
+                /*z-index: 99;*/
+                position: relative;
+                display: inline-block;
+                width: 14px;
+                height: 14px;
+                margin: 3px 0px 3px 3px;
+                cursor: pointer;
+                background: transparent url(sprite.png) no-repeat top left;
+                /*background-color: grey;*/
+                -moz-user-select: -moz-none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -o-user-select: none;
+                user-select: none;
+                }
+                #mynav_list #myedit_button{
+                	background-position: 0px 0px;
+                }
+                #mynav_list #myedit_button.active{
+                	background-position: 0px -17px;
+                }
+
+				#mynav_list #myfullscreen_button{
+                	background-position: -17px 0px;
+                }
+                #mynav_list #myfullscreen_button.active{
+                	background-position: -17px -17px;
+                }
+
+				#mynav_list #myphp_button{
+                	background-position: -34px 0px;
+                }
+                #mynav_list #myphp_button.active{
+                	background-position: -34px -17px;
+                }
+
+				#mynav_list #myclose_button{
+                	background-position: -51px 0px;
+                }
+
+
+
+
+                #mynav_list .myclose{
+                    float: right;
+                    margin: 3px 3px 3px 3px;
+                    }
+                #mynav_list .mybutton.active{
+                    /*background-color: red;*/
+                    }
+                #mynav_list .mysubbutton ul{
+                    display: none;
+                    position: absolute;
+                    top: 2px;
+                    left: -5px;
+                    background-color: red;
+                    list-style:none;
+                    padding: 0px;
+                    }
+                    #mynav_list .mysubbutton ul li{
+                        padding: 5px 10px;
+                        margin: 0;
+                        }
+                    #mynav_list .mysubbutton ul li:hover{
+                        background-color: violet;
+                        }
+                #mynav_list .mysubbutton:hover ul{
+                    display: block;
+                    }
+                #mynav_list .mysubbutton:hover:after{
+                    content:'';
+                    display:block;
+                    position:absolute;
+                    left:7px; bottom:-4px;
+                    width:0; height:0;
+                    border:solid 6px transparent;
+                    border-bottom: 4px solid #f00;
+                    margin-left:-6px;
+                    }
+                #mynav_list .mybutton:active, #mynav_list .mysubbutton ul li:active{
+                    /*background-color: orange;*/
+                    }
+        #mytab_list{
+            z-index: 1;
+            position: absolute;
+            left: 0; top: 20px;
+            width: 100%; height: 20px;
+            background-color: #888;
+            -webkit-transition: height 0.3s ease-in-out;
+            -moz-transition: height 0.3s ease-in-out;
+            -ms-transition: height 0.3s ease-in-out;
+            -o-transition: height 0.3s ease-in-out;
+            transition: height 0.3s ease-in-out;
+            }
+        #mylog.myfullscreen #mytab_list{
+            height: 0;
+            }
+        #mycontent_list{
+            position: relative;
+            top: 0;
+            padding: 40px 0 20px 0;
+            width: 100%; 
+            height: 100%;
+            -webkit-transition: padding 0.3s ease-in-out;
+            -moz-transition: padding 0.3s ease-in-out;
+            -ms-transition: padding 0.3s ease-in-out;
+            -o-transition: padding 0.3s ease-in-out;
+            transition: padding 0.3s ease-in-out;
+            }
+        #mylog.myfullscreen #mycontent_list{
+            padding: 20px 0 0 0;
+            }
+        #myfooter{
+            position: absolute;
+            bottom: 0;
+            width: 100%; 
+            height: 20px;
+            background-color: #888;
+            -webkit-transition: height 0.3s ease-in-out;
+            -moz-transition: height 0.3s ease-in-out;
+            -ms-transition: height 0.3s ease-in-out;
+            -o-transition: height 0.3s ease-in-out;
+            transition: height 0.3s ease-in-out;
+            }
+        #mylog.myfullscreen #myfooter{
+            height: 0;
+            }
+        #mylog .rsz{
+            position: absolute;
+            /*z-index: 9;*/
+            /*background-color: rgb(100,100,100)\9;*/
+            /*filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);*/
+            /*background-color: rgb(117,184,198);opacity: 0.5;*/
+            height:5px;
+            width:5px;
+            z-index: 99999;
+            height:5px\9;
+            width:5px\9;
+            }
+            #mylog .rsz_t{
+                left:0; 
+                top:0px;
+                width:100%;
+                cursor:ns-resize;
+                cursor:n-resize\9;
+                /*top:-5px\9;*/
+                }
+            #mylog .rsz_r{
+                top:0px;
+                right:0px;
+                height:100%;
+                cursor:ew-resize;
+                cursor:e-resize\9;
+                /*right:-5px\9;*/
+                }
+            #mylog .rsz_b{
+                left:0;
+                bottom:0px;
+                width:100%;
+                cursor:ns-resize;
+                cursor:n-resize\9;
+                /*bottom:-5px\9;*/
+                }
+            #mylog .rsz_l{
+                top:0;
+                left:0px;
+                height:100%;
+                cursor:ew-resize;
+                cursor:e-resize\9;
+                /*left:-5px\9;*/
+                }
+            #mylog .rsz_tr{
+                top:0px;
+                right:0px;
+                height:15px;
+                width: 15px;
+                cursor:nesw-resize;
+                cursor:ne-resize\9;
+                /*top:-5px\9;*/
+                /*right:-5px\9;*/
+                }
+            #mylog .rsz_rb{
+                bottom:0px;
+                right:0px;
+                height:15px;
+                width: 15px;
+                cursor:nwse-resize;
+                cursor:nw-resize\9;
+                /*bottom:-5px\9;*/
+                /*right:-5px\9;*/
+                }
+            #mylog .rsz_bl{
+                bottom:0px;
+                left:0px;
+                height:15px;
+                width: 15px;
+                cursor:nesw-resize;
+                cursor:ne-resize\9;
+                /*left:-5px\9;*/
+                /*bottom:-5px\9;*/
+                }
+            #mylog .rsz_lt{
+                left:0px;
+                top:0px;
+                height:15px;
+                width: 15px;
+                cursor:nwse-resize;
+                cursor:nw-resize\9;
+                /*top:-5px\9;*/
+                /*left:-5px\9;*/
+                }
+
+/* console */
+            #mycontent_list #myconsole{
+                position: relative;
+                width: 100%; height: 100%;
+                overflow-x: hidden;
+                overflow-y: scroll;
+
+                color:#a81a8f;
+                letter-spacing: 1px;
+                font-family: monospace;
+                font-size: 12px;
+                /*-webkit-font-smoothing: antialiased;*/
+                /*-webkit-font-smoothing: subpixel-antialiased;*/
+                }
+            #mycontent_list #myconsole .mysection{
+                position: relative;
+                padding: 5px 5px 5px 5px;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                }
+            #mycontent_list #myconsole #myminor{
+                margin-bottom: 50px;
+                }
+            #mycontent_list #myconsole .mysection .myback_color{
+                position: absolute;
+                left: 0; top: 0;
+                width: 100%; height: 100%;
+                opacity: 0.4;
+                }
+            #mycontent_list #myconsole .mysection .myline{
+                position: relative;
+                }
+            #mycontent_list #myconsole .mysection .myline *{
+                font-family: monospace;
+                }
+            #mycontent_list #myconsole .mysection .mycount{
+                position: absolute;
+                right: 5px; top: 0px;
+                color: #888;
+                border-radius: 10px;
+                margin: 0;
+                padding: 0 5px;
+                }
+            #mycontent_list #myconsole .mytab{
+                padding: 0px 15px;
+                border-radius: 5px;
+                }
+            #mycontent_list #myconsole #mymajor{
+                border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+                }
+            #mycontent_list #myconsole .mynumberline{
+                margin-right: 5px;
+                }
+/* theme color */
+		   	#mycontent_list .myresize{
+		        *background-color: rgb(0,0,0);
+		        *filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+		        }
+		    #mycontent_list #myconsole .mycount{
+		        color: #888;
+		        background-color: rgba(255,255,255,0.5);
+		        }
+
+		    /* background color */
+		    #mycontent_list #myconsole .mysection{
+		        border-bottom: solid 1px rgba(255,255,255,0.4);
+		        }
+		    #mycontent_list #myconsole .mysection:nth-child(even){
+		        background-color: rgba(0,0,0,0.05);
+		        }
+		    #mycontent_list #myconsole .mysection:hover{
+		        background-color: rgba(0,0,0,0.08);
+		        }
+		    #mycontent_list #myconsole .mytab:hover{
+		        background-color: rgba(0,0,0,0.1);
+		        }
+		    
+		    #mycontent_list #myconsole .mysection.important .myback_color{
+		        background-color: #e2273a;
+		        -webkit-animation: old both 0.5s linear 0s;
+		        }
+		    #mycontent_list #myconsole .mysection.important{
+		        color: #fff !important;
+		        }
+		    #mycontent_list #myconsole .mysection.important span{
+		        color: #fff !important;
+		        opacity: 0.6;
+		        }
+
+		    #mycontent_list #myconsole .mysection.red .myback_color{
+		        background-color: rgb(200,100,100);
+                filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40);
+		        -webkit-animation: new both 5s linear 0s;
+		        }
+		    #mycontent_list #myconsole .mysection.orange .myback_color{
+		        background-color: rgb(200,150,100);
+                filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40);
+		        -webkit-animation: new both 5s linear 0s;
+		        }
+		    #mycontent_list #myconsole .mysection.yellow .myback_color{
+		        background-color: rgb(200,200,100);
+                filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40);
+		        -webkit-animation: new both 5s linear 0s;
+		        }
+		    #mycontent_list #myconsole .mysection.green .myback_color{
+		        background-color: rgb(100,200,150);
+                filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40);
+		        -webkit-animation: new both 5s linear 0s;
+		        }
+		    #mycontent_list #myconsole .mysection.blue .myback_color{
+		        background-color: rgb(100,150,200);
+                filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40);
+		        -webkit-animation: new both 5s linear 0s;
+		        }
+		    #mycontent_list #myconsole .mysection.violet .myback_color{
+		        background-color: rgb(150,100,200);
+                filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40);
+		        -webkit-animation: new both 5s linear 0s;
+		        }
+		    #mycontent_list #myconsole .mysection.grey .myback_color{
+		        background-color: rgb(150,150,160);
+                filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40);
+		        -webkit-animation: new both 5s linear 0s;
+		        }
+
+		    @-webkit-keyframes new {
+		        0% { opacity: 1; }
+		        100% { opacity: 0.4; }
+		        }
+		    @-webkit-keyframes old {
+		        0% { opacity: 1; }
+		        50% { opacity: 0.6; }
+		        100% { opacity: 1; }
+		        }
+
+		    /* font color */
+		    #mycontent_list #myconsole .mynumberline{
+		        color:#fff;
+		        }
+		    #mycontent_list #myconsole #mymajor .myname{
+		        color:#B00;
+		        }
+		    #mycontent_list #myconsole #myminor .myname{
+		        color:#555;
+		        }
+		    #mycontent_list #myconsole .mysection .myred{
+		        color:#c21d1f;
+		        }
+		    #mycontent_list #myconsole .mysection .myorange{
+		        color:#c2671d;
+		        }
+		    #mycontent_list #myconsole .mysection .myyellow{
+		        color:#826b2e;
+		        }
+		    #mycontent_list #myconsole .mysection .myblack{
+		        color:#444;
+		        }
+		    #mycontent_list #myconsole .mysection .mygrey{
+		        color:#777;
+		        }
+		    #mycontent_list #myconsole .mysection .myblue{
+		        color:#1036b4;
+		        }
+		    #mycontent_list #myconsole .mysection .mytrue{
+		        color:#007f15;
+		        } 
+		    #mycontent_list #myconsole .mysection .myfalse{
+		        color:#c21d1f;
+		        }
+		    #mycontent_list #myconsole .mysection .mynumber{
+		        color:#213ea9;
+		        }
+            #mycontent_list #myconsole .mysection .mystring{
+                color:#a81a8f;
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

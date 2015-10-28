@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie6 lt-ie10 lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js ie7 lt-ie10 lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="no-js ie8 lt-ie10 lt-ie9"><![endif]-->
+<!--[if IE 8]><html class="no-js ie8 lt-ie10"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="fr"><!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Titre</title>
+
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="mathieu bruno - mathieu-bruno.com" />
+
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0" />
+
+    <!-- <link rel="icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" href="favicon.png" /> -->
+
+    <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <script type="text/javascript" src="http://matdev.fr/mylog/mylog-5.0/mylog.dev-5.0.11.js"></script>
+    <!-- <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script> -->
+    <!-- <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script> -->
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script> -->
+
+    <style type="text/css">
+
+        #grand_parent{
+            position: absolute;
+            width: 500px; height: 500px;
+            /*background-color: red;*/
+            cursor: pointer;
+        }
+
+        #parent{
+            position: absolute;
+            width: 300px; height: 300px;
+            left: 100px; top: 100px;
+            /*background-color: blue;*/
+            cursor: pointer;
+        }
+
+        #enfant{
+            position: absolute;
+            width: 100px; height: 100px;
+            left: 100px; top: 100px;
+            /*background-color: green;*/
+            cursor: pointer;
+        }
+
+        .element{
+            border: solid 1px black;
+            background-color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="grand_parent" class="element">
+
+        <div id="parent" class="element">
+
+            <div id="enfant" class="element"></div>
+
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript">
+
+
+
+        var grand_parent = document.getElementById('grand_parent'),
+            parent = document.getElementById('parent'),
+            enfant = document.getElementById('enfant');
+
+        var all_element = document.getElementsByClassName('element');
+
+
+        function enter(event){
+
+            event = event || window.event; // Compatibilité IE
+
+            var target = event.target;
+
+            for (var i = 0; i < all_element.length; i++) {
+                all_element[i].style.background = "red";
+            };
+            
+            
+            target.style.background = "orange";
+
+        }
+
+        function leave(event){
+
+            event = event || window.event; // Compatibilité IE
+
+            for (var i = 0; i < all_element.length; i++) {
+                all_element[i].style.background = "red";
+            };
+
+            var target = event.toElement;
+        
+            target.style.background = "orange";
+
+        }
+
+        grand_parent.onmouseenter = enter;
+        parent.onmouseenter = enter;
+        enfant.onmouseenter = enter;
+
+        grand_parent.onmouseleave = leave;
+        parent.onmouseleave = leave;
+        enfant.onmouseleave = leave;
+
+    </script>
+</body>
+</html>
+
+
+
+
+
