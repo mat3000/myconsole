@@ -20,7 +20,7 @@ todo :
 
     var _myversion = '6.0.0-beta';
     var _myname = 'console';
-    var _mypath = 'http://matdev.fr/mylog/mylog-6.0/';
+    var _mypath = 'http://matdev.fr/myconsole/myconsole/';
     var _myurl_css   = 'data/mylog.css';
     // var _myurl_action = 'data/action.php';
 
