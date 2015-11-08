@@ -10,9 +10,9 @@
 idee : afficher la ligne du log.green('okok') du le fichier js
 
 todo :
-    - buttons
+    - css resize
     - php
-
+    
 ****/
 
 (function() {
@@ -181,6 +181,12 @@ todo :
             self.$myreverse_button = document.getElementById('myreverse_button');
             self.$mymoveorselect_button = document.getElementById('myedit_button');
 
+            // var $myphp_button = document.getElementById('myphp_button');
+            // var $mymenu_button = document.getElementById('mymenu_button');
+            var $myedit_button = document.getElementById('myedit_button');
+            var $myreverse_button = document.getElementById('myreverse_button');
+            var $myreset_button = document.getElementById('myreset_button');
+
             self.dragNsize.init(self.$mypanel);
 
             self.$mytab = document.getElementsByClassName('mytab');
@@ -196,37 +202,19 @@ todo :
 
             };
 
-        },
-
-//  tab event
-        hover_tab_enter : function(event){
-
-            event = event || window.event;
-
-            for (var i = 0; i < _mypanel.$mytab.length; i++) {
-                _mypanel.tools.removeClass( _mypanel.$mytab[i], 'hover' );
-            };
+            // $myphp_button.onmouseup = _toggle_myphp;
+            // $mymenu_button.onmouseup = _toggle_mymenu;
+            $myedit_button.onmouseup = function(){ _mypanel.moveOrSelect('toggle') };
+            $myreverse_button.onmouseup = function(){ _mypanel.reverse('toggle') };
+            $myreset_button.onmouseup = function(){ _mypanel.clear() };
+            document.onclick = function(event){ 
+                event = event || window.event;
+                if ( event.altKey )
+                    _mypanel.display('toggle');
             
-            var target = event.target;
-            if( _mypanel.tools.hasClass(target, 'mytab') )
-                _mypanel.tools.addClass(target, 'hover');
-
-        },
-
-        hover_tab_leave : function(event){
-
-            event = event || window.event;
-
-            for (var i = 0; i < _mypanel.$mytab.length; i++) {
-                _mypanel.tools.removeClass( _mypanel.$mytab[i], 'hover' );
             };
-            
-            var target = event.toElement;
-            if( _mypanel.tools.parent_hasClass( target, 'mytab' ) )
-                _mypanel.tools.addClassToParent( target, 'mytab', 'hover' );
 
         },
-// !tab event
 
         time : function ( name, color ){
 
@@ -317,13 +305,11 @@ todo :
 
             }
 
-            if(document.documentElement.addEventListener){
+            if(document.documentElement.addEventListener)
                 document.documentElement.addEventListener("mouseup", mybutton);
-            }else{
+            else
                 document.documentElement.attachEvent("onmouseup", mybutton);
-            }
-
-
+            
         },
 
         range : function( name, color, min, max, step, callback){
@@ -353,16 +339,11 @@ todo :
 
             if(document.documentElement.addEventListener){
                 document.documentElement.addEventListener("change", myrange1);
-            }else{
-                document.documentElement.attachEvent("onchange", myrange1);
-            }
-
-            if(document.documentElement.addEventListener){
                 document.documentElement.addEventListener("input", myrange2);
             }else{
+                document.documentElement.attachEvent("onchange", myrange1);
                 document.documentElement.attachEvent("oninput", myrange2);
             }
-
 
         },
 
@@ -618,6 +599,35 @@ todo :
                     self._myminor.push('<div id="myminor_'+self._i_minor+'" class="mysection '+color+'">'+html+'</div>');
 
             }
+
+        },
+
+        //  tab event
+        hover_tab_enter : function(event){
+
+            event = event || window.event;
+
+            for (var i = 0; i < _mypanel.$mytab.length; i++) {
+                _mypanel.tools.removeClass( _mypanel.$mytab[i], 'hover' );
+            };
+            
+            var target = event.target;
+            if( _mypanel.tools.hasClass(target, 'mytab') )
+                _mypanel.tools.addClass(target, 'hover');
+
+        },
+
+        hover_tab_leave : function(event){
+
+            event = event || window.event;
+
+            for (var i = 0; i < _mypanel.$mytab.length; i++) {
+                _mypanel.tools.removeClass( _mypanel.$mytab[i], 'hover' );
+            };
+            
+            var target = event.toElement;
+            if( _mypanel.tools.parent_hasClass( target, 'mytab' ) )
+                _mypanel.tools.addClassToParent( target, 'mytab', 'hover' );
 
         },
 
