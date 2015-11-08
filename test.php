@@ -95,43 +95,57 @@ var test12 = {'test9':test9,'test10':test10};
 $('button').click(function(){
 	var name = $(this).attr('name');
 	var value = $(this).attr('value');
-	// console.log(value)
+	// log.log(value)
 	_mypanel[name](value);
 });
 
 var i = 0
-console.loop(0, 'loop')
+log.loop(0, 'loop')
 
-setInterval(function(){
+/*setInterval(function(){
 	
-	console.loop(++i, 'loop')
-	console.green('loop', 'loop'+i)
+	log.loop(++i, 'loop')
+	log.green('loop', 'loop'+i)
 
-}, 4000);
+}, 4000);*/
 
-console.red('red')
-console.orange('orange')
-console.yellow('yellow')
-console.green('green')
-console.blue('blue')
-console.violet('violet')
-console.info(test1,'name','color','value');
-console.info(test2,'name','color','value');
-console.info(test3,'name','color','value');
-console.info(test4,'name','color','value');
-console.info(test5,'name','color','value');
-console.info(test6,'name','color','value');
-console.info(test7,'name','color','value');
-console.info(test8,'name','color','value');
-console.info(test9,'name','color','value');
-console.info(test10,'name','color','value');
-console.info(test11,'name','color','value');
-console.info(test12,'name','color','value');
-
-
+log.red('red')
+log.orange('orange')
+log.yellow('yellow')
+log.green('green')
+log.blue('blue')
+log.violet('violet')
+log.info(test1,'name','color','value');
+log.info(test2,'name','color','value');
+log.info(test3,'name','color','value');
+log.info(test4,'name','color','value');
+log.info(test5,'name','color','value');
+log.info(test6,'name','color','value');
+log.info(test7,'name','color','value');
+log.info(test8,'name','color','value');
+log.info(test9,'name','color','value');
+log.info(test10,'name','color','value');
+log.info(test11,'name','color','value');
+log.info(test12,'name','color','value');
 
 
 
+log.time();
+setTimeout(function(){
+    log.time();
+},1000);
+
+log.size();
+
+log.key();
+
+log.button('bouton', function(){
+    alert('ok');
+});
+
+log.range('range', {min:0, max:20, step:0.1}, function(data){
+    alert(data);
+});
 
 </script>
 

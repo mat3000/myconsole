@@ -10,17 +10,17 @@
 idee : afficher la ligne du log.green('okok') du le fichier js
 
 todo :
-    - change cursor on clic
-    - cabler tous les log
     - buttons
     - php
+
 ****/
 
 (function() {
 
     var _myversion = '6.0.0-beta';
-    var _myname = 'console';
-    var _mypath = 'http://matdev.fr/myconsole/myconsole/';
+    var _myname = 'log';
+    // var _mypath = 'http://matdev.fr/myconsole/myconsole/';
+    var _mypath = 'http://localhost:8888/myconsole/';
     var _myurl_css   = 'data/mylog.css';
     // var _myurl_action = 'data/action.php';
 
@@ -33,41 +33,108 @@ todo :
         h : 150
     }
 
-    if(!window.console) window.console = {};
+    window[ _myname ] = {
+
+        loop: function( obj, name, color ) {
+            if (typeof color == 'undefined') color='loop';
+            if( name=='red' || name=='orange' || name=='yellow' || name=='green' || name=='blue' || name=='violet' ){
+                color = name;
+                name = 'none';
+            };
+            _mypanel.element(obj, name, color, 'major');
+        },
+
+        info: function( obj, name, color ) {
+            if( name=='red' || name=='orange' || name=='yellow' || name=='green' || name=='blue' || name=='violet' ){
+                color = name;
+                name = 'none';
+            };
+            _mypanel.element(obj, name, color, 'minor');
+        },
+
+        red: function( obj, name ) {
+            _mypanel.element( obj, name, 'red', 'minor' );
+        },
+
+        orange: function( obj, name ) {
+            _mypanel.element( obj, name, 'orange', 'minor' );
+        },
+
+        yellow: function( obj, name ) {
+            _mypanel.element( obj, name, 'yellow', 'minor' );
+        },
+
+        green: function( obj, name ) {
+            _mypanel.element( obj, name, 'green', 'minor' );
+        },
+
+        Green: function( obj, name ) {
+            _mypanel.element( obj, name, 'green', 'minor' );
+        },
+ 
+        blue: function( obj, name ) {
+            _mypanel.element( obj, name, 'blue', 'minor' );
+        },
+
+        violet: function( obj, name ) {
+            _mypanel.element( obj, name, 'violet', 'minor' );
+        },
+
+        white: function( obj, name ) {
+            _mypanel.element( obj, name, 'white', 'minor' );
+        },
+ 
+        grey: function( obj, name ) {
+            _mypanel.element( obj, name, 'grey', 'minor' );
+        },
+
+        black: function( obj, name ) {
+            _mypanel.element( obj, name, 'black', 'minor' );
+        },
 
 
-    window[_myname]['loop'] = function(obj, name, color) {
-        _mypanel.element(obj, name, 'loop', 'major');
+
+        time: function( name, color ) {
+            if (typeof color == 'undefined') color='loop';
+            if (typeof name == 'undefined') name='time';
+            _mypanel.time( name, color ); 
+
+        },
+ 
+        size: function( color ) {
+            if (typeof color == 'undefined') color='loop';
+            _mypanel.size( color );
+        },
+
+        key: function( color ) {
+            if (typeof color == 'undefined') color='loop';
+            _mypanel.key( color );
+        },
+
+        button: function( name, callback ) {
+
+            if (typeof name == 'undefined') test='button';
+            if (typeof callback == 'undefined') test='button';
+            else test = name;
+
+            _mypanel.button( 'loop', test, function(i){
+                if(callback) callback(i);
+                else if(name) name(i);
+            });
+        },
+
+        range: function( name, data, callback ) {
+
+            min = data.min ? 0 : 0;
+            max = data.max ? data.max : 10;
+            step = data.step ? data.step : 1;
+
+            _mypanel.range( name, 'loop', min, max, step, function(i){
+                if(callback) callback(i);
+            });
+        }
+
     };
-
-    window[_myname]['info'] = function(obj, name, color) {
-        _mypanel.element(obj, name, color, 'minor');
-    };
-
-    window[_myname]['red'] = function(obj, name, color) {
-        _mypanel.element(obj, name, 'red', 'minor');
-    };
-
-    window[_myname]['orange'] = function(obj, name, color) {
-        _mypanel.element(obj, name, 'orange', 'minor');
-    };
-
-    window[_myname]['yellow'] = function(obj, name, color) {
-        _mypanel.element(obj, name, 'yellow', 'minor');
-    };
-
-    window[_myname]['green'] = function(obj, name, color) {
-        _mypanel.element(obj, name, 'green', 'minor');
-    };
-
-    window[_myname]['blue'] = function(obj, name, color) {
-        _mypanel.element(obj, name, 'blue', 'minor');
-    };
-
-    window[_myname]['violet'] = function(obj, name, color) {
-        _mypanel.element(obj, name, 'violet', 'minor');
-    };
-
 
     _mypanel = {
 
@@ -82,12 +149,17 @@ todo :
         $myminor : null,
         $myreverse_button : null,
         $mymoveorselect_button : null,
+        $mytab : null,
         _mymajor : [],
         _myminor : [],
         _refMajor : [],
         _i_major : {},
         _i_minor : 0,
         _i_arbo : 0,
+        _newtime : false,
+        _time1 : null,
+        _time2 : null,
+
 
         init : function(){
             
@@ -111,9 +183,188 @@ todo :
 
             self.dragNsize.init(self.$mypanel);
 
+            self.$mytab = document.getElementsByClassName('mytab');
+            for (var i = 0; i < self.$mytab.length; i++) {
+
+                if(self.$mytab[i].addEventListener){
+                    self.$mytab[i].addEventListener("mouseenter", self.hover_tab_enter);
+                    self.$mytab[i].addEventListener("mouseleave", self.hover_tab_leave);
+                }else{
+                    self.$mytab[i].attachEvent("onmouseenter", self.hover_tab_enter);
+                    self.$mytab[i].attachEvent("onmouseleave", self.hover_tab_leave);
+                }
+
+            };
+
         },
 
-        php : function(){},
+//  tab event
+        hover_tab_enter : function(event){
+
+            event = event || window.event;
+
+            for (var i = 0; i < _mypanel.$mytab.length; i++) {
+                _mypanel.tools.removeClass( _mypanel.$mytab[i], 'hover' );
+            };
+            
+            var target = event.target;
+            if( _mypanel.tools.hasClass(target, 'mytab') )
+                _mypanel.tools.addClass(target, 'hover');
+
+        },
+
+        hover_tab_leave : function(event){
+
+            event = event || window.event;
+
+            for (var i = 0; i < _mypanel.$mytab.length; i++) {
+                _mypanel.tools.removeClass( _mypanel.$mytab[i], 'hover' );
+            };
+            
+            var target = event.toElement;
+            if( _mypanel.tools.parent_hasClass( target, 'mytab' ) )
+                _mypanel.tools.addClassToParent( target, 'mytab', 'hover' );
+
+        },
+// !tab event
+
+        time : function ( name, color ){
+
+            var self = this;
+
+            if (!Date.now) {
+                Date.now = function() {
+                    return new Date().valueOf();
+                }
+            };
+
+            if (!self._newtime) {
+
+                self._time1 = Date.now();
+                self._newtime=true;
+
+            } else {
+
+                self._time2 = Date.now();
+
+                self._generate_line( '<span class="mywhite">'+((self._time2-self._time1)/1000)+'</span>', name, color, 'major');
+
+                self._newtime=false;
+
+            };
+
+        },
+
+        size : function(color){
+
+            var self = this;
+
+            function resize(){
+
+                var sizeWindow={
+                    x : window.innerWidth,
+                    y : window.innerHeight
+                };
+
+                self._generate_line( '<span class="mywhite">w: '+sizeWindow.x+'px | h: '+sizeWindow.y+'px</span>', 'size', color, 'major');
+
+            }
+
+            resize();
+
+            window.onresize = function(event) {
+
+                resize();
+
+            }
+        },
+
+        key : function(color){
+
+            var self = this;
+
+            self._generate_line( '<span class="mywhite">press key</span>', 'key', color, 'major' );
+
+            document.onkeydown = function(event){
+
+                event = event || window.event; // Compatibilité IE
+
+                var CharCodeW = event.which;
+                var CharCodeK = event.keyCode; //verif
+                var letter = String.fromCharCode(CharCodeW);
+
+                self._generate_line( '<span class="mywhite">letter: '+letter+' | CharCode: '+CharCodeW+' - '+CharCodeK+'</span>', 'key', color, 'major' );
+
+            }
+
+        },
+
+        button : function(color, name, callback){
+
+            var self = this;
+            var id = Math.round(Math.random()*100000);
+
+            self._generate_line( '<button id="mybutton'+name+'" class="stop-move" data-click="0">action</button>', name, color, 'major' );
+
+            function mybutton(event){
+                event = event || window.event; // Compatibilité IE
+                var $target = event.target || event.srcElement;
+                if( $target.getAttribute('id')=='mybutton'+name && callback ){
+                    var i = parseInt( $target.getAttribute('data-click') ) + 1;
+                    $target.setAttribute('data-click', i);
+                    callback(i);
+                }
+
+            }
+
+            if(document.documentElement.addEventListener){
+                document.documentElement.addEventListener("mouseup", mybutton);
+            }else{
+                document.documentElement.attachEvent("onmouseup", mybutton);
+            }
+
+
+        },
+
+        range : function( name, color, min, max, step, callback){
+
+            var self = this;
+
+            self._generate_line( '<input type="range" id="myrange-'+name+'" class="stop-move" min="'+min+'" max="'+max+'" step="'+step+'" value="0" /><span id="myrangeval-'+name+'" class="mywhite"></span>', name, color, 'major' );
+
+            function myrange1(event){
+                event = event || window.event; // Compatibilité IE
+                var $target = event.target || event.srcElement;
+                if( $target.getAttribute('id')=='myrange-'+name && callback ){
+                    var val = parseFloat($target.value);
+                    callback(val);
+                }
+
+            }
+
+            function myrange2(event){
+                event = event || window.event; // Compatibilité IE
+                var $target = event.target || event.srcElement;
+                if( $target.getAttribute('id')=='myrange-'+name && callback ){
+                    document.getElementById('myrangeval-'+name).innerText = $target.value;
+                }
+
+            }
+
+            if(document.documentElement.addEventListener){
+                document.documentElement.addEventListener("change", myrange1);
+            }else{
+                document.documentElement.attachEvent("onchange", myrange1);
+            }
+
+            if(document.documentElement.addEventListener){
+                document.documentElement.addEventListener("input", myrange2);
+            }else{
+                document.documentElement.attachEvent("oninput", myrange2);
+            }
+
+
+        },
 
         element : function( object, name, color, value ){
 
@@ -544,12 +795,12 @@ todo :
             newNode.innerHTML = 
                 '<div class="myback"></div>'+
                 '<div id="mynav_list">'+
-                    '<div id="myphp_button" class="mybutton" data-stop-propa="true"></div>'+
-                    '<div id="myedit_button" class="mybutton'+moveOrSelect+'" data-stop-propa="true"></div>'+
-                    '<div id="mymenu_button" class="mybutton" data-stop-propa="true"></div>'+
-                    '<div id="myreverse_button" class="mybutton'+reverse+'" data-stop-propa="true"></div>'+
-                    '<div id="myreset_button" class="mybutton" data-stop-propa="true"></div>'+
-                    '<div id="myclose_button" class="myclose" data-stop-propa="true"></div>'+
+                    '<div id="myphp_button" class="mybutton"></div>'+
+                    '<div id="myedit_button" class="mybutton'+moveOrSelect+'"></div>'+
+                    '<div id="mymenu_button" class="mybutton"></div>'+
+                    '<div id="myreverse_button" class="mybutton'+reverse+'"></div>'+
+                    '<div id="myreset_button" class="mybutton"></div>'+
+                    '<div id="myclose_button" class="myclose"></div>'+
                 '</div>'+
 
                 '<div id="mytab_list">'+
@@ -667,6 +918,8 @@ todo :
 
                 var $target = event.target || event.srcElement;
                 if( _mypanel.tools.parent_hasClass($target, 'stop-move') ) return;
+
+                _mypanel.tools.addClass(self.$node, 'moving');
 
                 event.preventDefault ? event.preventDefault() : event.returnValue = false;
 
@@ -834,6 +1087,8 @@ todo :
                 for(v in self.drag_end)
                     _mypanel.tools.add_cookie(v, self.drag_end[v]);
 
+                _mypanel.tools.removeClass(self.$node, 'moving');
+
                 self.drag = null;
 
             }
@@ -852,10 +1107,16 @@ todo :
 
             addClass : function ( node, className ){
                 var self = this;
-                var attr = node.className.split(' ');
-                if(self.indexof(attr, className)>0) return;
-                attr.push(className);
-                node.className = attr.join(' ');
+                var attr = node.className;
+                if(!attr){
+                    node.className = className;
+                }else{
+                    var attr = node.className.split(' ');
+                    if(self.indexof(attr, className)>0) return;
+                    if(!attr) attr[className]
+                    else attr.push(className);
+                    node.className = attr.join(' ');
+                }
             },
 
             removeClass : function ( node, className ){

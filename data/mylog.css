@@ -21,7 +21,7 @@
             -moz-box-sizing: border-box;
             box-sizing: border-box;
             }
-        #mylog.mymove{
+        #mylog.moving{
             cursor: url(img/grabbing.png), move;
             cursor: -webkit-grabbing;
             cursor: move\9;
@@ -46,18 +46,9 @@
             position: absolute;
             left: 0; top: 0;
             width: 100%; height: 21px;
-            /*cursor: move;*/
-            cursor: url(img/grab.png), auto;
-            cursor: -webkit-grab;
-            cursor: move\9;
             background-color: #555;
             border-radius: 3px 3px 0 0;
             }
-            #mylog.mymove #mynav_list{
-                cursor: url(img/grabbing.png), auto;
-                cursor: -webkit-grabbing;
-                cursor: move\9;
-                }
             #mynav_list .mybutton, #mynav_list .mysubbutton, #mynav_list .myclose{
                 /*z-index: 99;*/
                 position: relative;
@@ -434,6 +425,11 @@
                 position: relative;
                 /*padding: 5px 5px 5px 5px;*/
                 }
+            #mycontent_list #myconsole .mysection .myline input[type="range"]{
+                margin: 0 5px 0 0;
+                height: 5px;
+                position: relative;
+                }
             #mycontent_list #myconsole .mysection .myline *{
                 font-family: monospace;
                 }
@@ -625,9 +621,12 @@
 		    #mycontent_list .highlight_html .myblack{
 		        color:#444;
 		        }
-		    #mycontent_list .highlight_html .mygrey{
-		        color:#777;
-		        }
+            #mycontent_list .highlight_html .mygrey{
+                color:#777;
+                }
+            #mycontent_list .highlight_html .mywhite{
+                color:#fff;
+                }
 		    #mycontent_list .highlight_html .myblue{
 		        color:#1036b4;
 		        }
